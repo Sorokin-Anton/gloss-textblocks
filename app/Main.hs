@@ -14,8 +14,8 @@ data Model = Model {str :: String, scalar :: Float}
 
 update :: Event -> Model -> IO Model
 update (EventKey (Char c) Down _ _) m = pure m{str = str m <> [c]}
-update (EventKey (SpecialKey KeyUp) Down _ _) m = pure m{scalar = scalar m + 0.5}
-update (EventKey (SpecialKey KeyDown) Down _ _) m = pure m{scalar = scalar m - 0.5}
+update (EventKey (SpecialKey KeyUp) Down _ _) m = pure m{scalar = scalar m * 1.2}
+update (EventKey (SpecialKey KeyDown) Down _ _) m = pure m{scalar = scalar m / 1.2 }
 update _ x = pure x
 
 mkDrawerWithCaching :: Font ->  IO (String -> IO Picture)
@@ -35,4 +35,4 @@ main = do
   font <- robotoMono 40
   drawer <- mkDrawerWithCaching font
   let draw Model{str, scalar} = scale scalar scalar <$> drawer str
-  playIO FullScreen white 60 (Model (['а'..'я'] <> "\n" <> ['А'..'Я']) 1) draw update (const pure)
+  playIO FullScreen white 60 (Model (['а'..'я'] <> "\n" <> ['А'..'Я']<> "\n" <> ['a'..'z']) 1) draw update (const pure)

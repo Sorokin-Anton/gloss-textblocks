@@ -14,4 +14,4 @@ robotoMono n = do
 
 
 simpleTextBlock :: Font -> Text -> IO ((Float, Float), Picture)
-simpleTextBlock f t = bitmapOfSurface NoCache =<< blended  f (V4 0 0 0 255) t
+simpleTextBlock f t = bitmapOfSurface NoCache =<< blended f (V4 0 0 0 255) t
